@@ -11,6 +11,10 @@ CREATE TABLE users(
 		PRIMARY KEY (id)
 ) COMMENT='users';
 
+insert into users (id, name, birthday, sex, prefecture_id, password) values (1, 'name1', '1984-01-01', 2,2,'12345678');
+insert into users (id, name, birthday, sex, prefecture_id, password) values (2, 'name2', '1984-01-02', 2,2,'12345678');
+
+
 /**********************************/
 /* テーブル名: prefectures */
 /**********************************/
@@ -18,9 +22,6 @@ CREATE TABLE prefectures(
 		id                            		TINYINT		 NULL  COMMENT 'id',
 		name                          		VARCHAR(10)		 NULL  COMMENT 'name'
 ) COMMENT='prefectures';
-
-
-insert into users values(1, 'firstuser','1984-01-01', 1, 13, 'password');
 
 
 insert into prefectures (id, name) values

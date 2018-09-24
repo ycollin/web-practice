@@ -1,18 +1,21 @@
 package com.example.webpractice;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RestController
+@Controller
 public class UserListController {
 
 	@Autowired
 	private UserRepository userRepository;
 
-	   @RequestMapping("/")
-	    public String index() {
-
-	        return "Greetings from Spring Boot!aaa" + userRepository.count();
+	   @GetMapping("/users")
+	    public String list(@RequestParam(name="name", required=false, defaultValue="user1") String name, Model model) {
+		    model.addAttribute("name", name);
+		    model.addAttribute("count" , userRepository.count());
+	        return "users";
 	    }
 }

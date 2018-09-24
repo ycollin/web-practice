@@ -7,5 +7,10 @@
 <body>
     <p th:text="'Hello, ' + ${name} + '!'" />
     <p th:text="'count: ' + ${count} + '!'" />
+
+	<tr th:each="user : ${userList}">
+	  <td th:text="${user.name}" class="tdtest"></td>
+	  <td th:text="${user.birthday}" class="tdtest"></td>
+	</tr>
 </body>
 </html>

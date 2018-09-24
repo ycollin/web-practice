@@ -16,6 +16,10 @@ public class UserListController {
 	    public String list(@RequestParam(name="name", required=false, defaultValue="user1") String name, Model model) {
 		    model.addAttribute("name", name);
 		    model.addAttribute("count" , userRepository.count());
+
+
+		    model.addAttribute("userList", userRepository.findAll());
+
 	        return "users";
 	    }
 }

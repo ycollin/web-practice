@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-design-blocks/1.0.2/css/froala_blocks.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+<header class="bg-dark" data-block-type="headers" data-id="3">
+  <div class="container">
+    <nav class="navbar navbar-expand-md">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav9" aria-controls="navbarNav9" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav9">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/users/list">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+
+        <a class="btn btn-white btn-empty ml-md-3" href="logout">logout</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<section class="fdb-block" data-block-type="contents" data-id="1" draggable="true">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col col-md-8 text-center">
+        <h1>Users</h1>
+      </div>
+      <div class="col col-md-8 text-center">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">name</th>
+		      <th scope="col">birthday</th>
+		      <th scope="col">prefectureId</th>
+		      <th scope="col">sex</th>
+		      <th scope="col"></th>
+		      <th scope="col"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="user : ${userList}">
+			  <td th:text="${user.id}" class="tdtest"></td>
+			  <td th:text="${user.name}" class="tdtest"></td>
+			  <td th:text="${user.birthday}" class="tdtest"></td>
+			  <td th:text="${user.prefectureId}" class="tdtest"></td>
+			  <td th:text="${user.sex}" class="tdtest"></td>
+			  <td><a th:href="@{/users/update(id=${user.id})}"> <button type="button" class="btn btn-dark">update</button></a></td>
+			  <td><button type="button" class="btn btn-dark" onClick="location.href='/users/delete'">delete</button></td>
+		    </tr>
+		  </tbody>
+		</table>
+      </div>
+
+    </div>
+  </div>
+</section>
+<footer class="fdb-block footer-large bg-dark" data-block-type="footers" data-id="2">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col text-center">
+        sample site.
+      </div>
+    </div>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import lombok.val;
 
 @Component
-public class LoginCheckFilter implements Filter{
+public class LoginCheckFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,13 +25,16 @@ public class LoginCheckFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		val session = ((HttpServletRequest)request).getSession();
-		if (session == null) {
-			((HttpServletResponse)response).sendRedirect("/login");
+		val session = ((HttpServletRequest) request).getSession();
+		val path = ((HttpServletRequest) request).getRequestURI();
+		if (path.startsWith("/login") || path.startsWith("/logout")) { // TODO
+			// do nothing
+		} else if (session == null) {
+			((HttpServletResponse) response).sendRedirect("/login");
 		} else if (session.getAttribute("login") == null) {
-			((HttpServletResponse)response).sendRedirect("/login");
+			((HttpServletResponse) response).sendRedirect("/login");
 		}
-			chain.doFilter(request, response);
+		chain.doFilter(request, response);
 	}
 
 	@Override

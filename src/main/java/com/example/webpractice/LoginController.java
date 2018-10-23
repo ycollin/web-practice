@@ -23,7 +23,6 @@ public class LoginController {
 	@Autowired
 	private UserRepository userRepository;
 
-
 	@GetMapping("/login")
 	public String login(Model model) {
 		model.addAttribute(new User());

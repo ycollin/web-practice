@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +6,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-
-<script type="text/javascript">
-	function submitAction(url) {
-		$('form').attr('action', url);
-		$('form').submit();
-	}
-</script>
 </head>
 <body>
 	<header class="bg-dark" data-block-type="headers" data-id="3">
@@ -59,23 +51,22 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">prefecture</label>
-							<select id="prefectureId" th:field="*{prefectureId}">
-								<option th:each="pref : ${prefectureList}" th:value="${pref.id}" th:inline="text">[[${pref.name}]]</option>
+							<!-- 			              <input type="text" class="form-control" placeholder=prefecture th:field="*{prefectureId}" > -->
+							<select id="prefectureId" name="prefectureId">
+								<option th:each="pref : ${prefectureList}" th:value="${pref.id}" th:selected="${pref.id == id}" th:inline="text">[[${pref.name}]]</option>
 							</select>
+
 						</div>
 						<div class="form-group">
 							<label class="control-label">password</label> <input type="password" class="form-control" placeholder=password th:field="*{password}">
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-default">update</button>
-				<button type="submit" class="btn btn-dark" onClick="submitAction('/users/delete')">delete</button>
+				<button type="submit" class="btn btn-default">register</button>
 				<a th:href="@{/users/list}">
 					<button type="button" class="btn btn-dark">return</button>
 				</a>
-
 			</form>
-		</div>
 	</section>
 	<footer class="fdb-block footer-large bg-dark" data-block-type="footers" data-id="2">
 		<div class="container">

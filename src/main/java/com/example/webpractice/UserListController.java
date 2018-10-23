@@ -1,5 +1,6 @@
 package com.example.webpractice;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,29 +15,63 @@ public class UserListController {
 	@Autowired
 	private UserRepository userRepository;
 
-	   @GetMapping("/users/list")
-	    public String list(@RequestParam(name="name", required=false, defaultValue="user1") String name, Model model) {
-		    model.addAttribute("name", name);
-		    model.addAttribute("userList", userRepository.findAll());
-	        return "users/list";
-	    }
+	@Autowired
+	private PrefectureRepository prefectureRepository;
 
+	@GetMapping("/users/list")
+	public String list(@RequestParam(name = "name", required = false, defaultValue = "user1") String name,
+			Model model) {
+		model.addAttribute("name", name);
+		model.addAttribute("condition", new UserCondition());
+		model.addAttribute("userList", userRepository.findAll());
+		return "users/list";
+	}
 
-	   @GetMapping("/users/update")
-	    public String update(@RequestParam(name="id", required=true, defaultValue="1") Integer id, Model model) {
-		    model.addAttribute("id", id);
-		    model.addAttribute("user", userRepository.findById(id).get());
+	@GetMapping("/users/search")
+	public String search(@ModelAttribute UserCondition condition, Model model) {
+		model.addAttribute("condition", condition);
+		// TODO: 検索条件
+		if (Strings.isNotEmpty(condition.getName())) {
+			model.addAttribute("userList", userRepository.findByName(condition.getName()));
+		} else {
+			model.addAttribute("userList", userRepository.findAll());
+		}
+		return "users/list";
+	}
 
-	        return "users/update";
-	    }
+	@GetMapping("/users/update")
+	public String showUpdate(@RequestParam(name = "id", required = true, defaultValue = "1") Integer id, Model model) {
+		model.addAttribute("id", id);
+		model.addAttribute("user", userRepository.findById(id).get());
+		model.addAttribute("prefectureList", prefectureRepository.findAll());
 
+		return "users/update";
+	}
 
+	@PostMapping("/users/update")
+	public String update(@ModelAttribute User user, Model model) {
+		userRepository.save(user);
+		model.addAttribute("user", userRepository.findById(user.getId()).get());
 
-	   @PostMapping("/users/update")
-	    public String update(@ModelAttribute  User user, Model model) {
-		   userRepository.save(user);
-		   model.addAttribute("user", userRepository.findById(user.getId()).get());
+		return "redirect:list";
+	}
 
-	        return "redirect:list";
-	    }
+	@GetMapping("/users/register")
+	public String showRegister(@ModelAttribute User user, Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("prefectureList", prefectureRepository.findAll());
+		return "users/register";
+	}
+
+	@PostMapping("/users/register")
+	public String register(@ModelAttribute User user, Model model) {
+		userRepository.save(user);
+		return "redirect:list";
+	}
+
+	@PostMapping("/users/delete")
+	public String delete(@RequestParam(name = "id", required = true) Integer id, Model model) {
+		userRepository.deleteById(id);
+		return "redirect:list";
+	}
 }

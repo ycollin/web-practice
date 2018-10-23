@@ -1,5 +1,9 @@
 package com.example.webpractice;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,14 @@ public class UserListController {
 
 	@Autowired
 	private PrefectureRepository prefectureRepository;
+
+	final public static Map<String, String> sexList = Collections.unmodifiableMap(new LinkedHashMap<String, String>() {
+		{
+			put("male", "1");
+			put("female", "2");
+			put("other", "3");
+		}
+	});
 
 	@GetMapping("/users/list")
 	public String list(@RequestParam(name = "name", required = false, defaultValue = "user1") String name,
@@ -44,6 +56,7 @@ public class UserListController {
 		model.addAttribute("id", id);
 		model.addAttribute("user", userRepository.findById(id).get());
 		model.addAttribute("prefectureList", prefectureRepository.findAll());
+		model.addAttribute("sexList", sexList);
 
 		return "users/update";
 	}
@@ -60,6 +73,7 @@ public class UserListController {
 	public String showRegister(@ModelAttribute User user, Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("prefectureList", prefectureRepository.findAll());
+		model.addAttribute("sexList", sexList);
 		return "users/register";
 	}
 

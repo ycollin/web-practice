@@ -34,7 +34,7 @@
 
 
 
-			<form action="#" th:action="@{/users/update}" th:object="${user}" method="post">
+			<form action="#" th:action="@{/users/register}" th:object="${user}" method="post">
 				<div class="row pt-4">
 					<div class="col-4 ">
 						<div class="form-group">
@@ -47,15 +47,15 @@
 							<label class="control-label">birthday</label> <input type="text" class="form-control" placeholder=birthday th:field="*{birthday}">
 						</div>
 						<div class="form-group">
-							<label class="control-label">sex</label> <input type="text" class="form-control" placeholder=sex th:field="*{sex}">
+							<label class="control-label">sex</label>
+							<div class="radio" th:each="item : ${sexList}">
+								 <input type="radio" name="sex" th:value="${item.value}" th:text="${item.key}" th:field="*{sex}"></input>
+							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">prefecture</label>
-							<!-- 			              <input type="text" class="form-control" placeholder=prefecture th:field="*{prefectureId}" > -->
-							<select id="prefectureId" name="prefectureId">
-								<option th:each="pref : ${prefectureList}" th:value="${pref.id}" th:selected="${pref.id == id}" th:inline="text">[[${pref.name}]]</option>
+							<label class="control-label">prefecture</label> <select id="prefectureId" th:field="*{prefectureId}">
+								<option th:each="pref : ${prefectureList}" th:value="${pref.id}" th:inline="text">[[${pref.name}]]</option>
 							</select>
-
 						</div>
 						<div class="form-group">
 							<label class="control-label">password</label> <input type="password" class="form-control" placeholder=password th:field="*{password}">

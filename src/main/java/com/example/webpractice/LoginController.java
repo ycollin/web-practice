@@ -34,7 +34,7 @@ public class LoginController {
 		val found = userRepository.findByName(user.getName());
 		if (found.isEmpty() || !user.getPassword().equals(found.get(0).getPassword())) {
 			user.setPassword("");
-			return "/login";
+			return "login";
 		}
 		session.setAttribute("login", new Date());
 

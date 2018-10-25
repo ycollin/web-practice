@@ -46,7 +46,7 @@
 				<div class="row pt-4">
 					<div class="col-4 ">
 						<div class="form-group">
-							<label class="control-label">id</label> <input type="text" class="form-control" placeholder=id th:field="*{id}">
+							<label class="control-label">id</label> <p th:text="${user.id}" class="tdtest"/><input type="hidden" name="id" th:value="${user.id}" />
 						</div>
 						<div class="form-group">
 							<label class="control-label">name</label> <input type="text" class="form-control" placeholder=name th:field="*{name}">
@@ -56,9 +56,10 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">sex</label>
-							<div class="radio" th:each="item : ${sexList}">
-								 <input type="radio" name="sex" th:value="${item.value}" th:text="${item.key}" th:field="*{sex}"></input>
+							<div class="radio" th:each="item : ${T(com.example.webpractice.Sex).values()}">
+								 <input type="radio" name="sex" th:value="${item.id}" th:text="${item.name}" th:field="*{sex}"></input>
 							</div>
+
 						</div>
 						<div class="form-group">
 							<label class="control-label">prefecture</label> <select id="prefectureId" th:field="*{prefectureId}">

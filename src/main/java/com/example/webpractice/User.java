@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,6 +17,7 @@ public class User {
 	@Id
 	private Integer id;
 
+	@NotEmpty
 	private String name;
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date birthday;

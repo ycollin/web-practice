@@ -48,8 +48,8 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">sex</label>
-							<div class="radio" th:each="item : ${sexList}">
-								 <input type="radio" name="sex" th:value="${item.value}" th:text="${item.key}" th:field="*{sex}"></input>
+							<div class="radio" th:each="item : ${T(com.example.webpractice.Sex).values()}">
+								 <input type="radio" name="sex" th:value="${item.id}" th:text="${item.name}" th:field="*{sex}"></input>
 							</div>
 						</div>
 						<div class="form-group">

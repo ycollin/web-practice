@@ -65,8 +65,8 @@
 								<td th:text="${user.id}" class="tdtest"></td>
 								<td th:text="${user.name}" class="tdtest"></td>
 								<td th:text="${#dates.format(user.birthday, 'yyyy/MM/dd')}" class="tdtest"></td>
-								<td th:text="${user.prefectureId}" class="tdtest"></td>
-								<td th:text="${user.sex}" class="tdtest"></td>
+								<td th:text="${prefectureMap.get( __${user.prefectureId}__)}" class="tdtest"></td>
+								<td th:text="${T(com.example.webpractice.Sex).idToName(user.sex)}" class="tdtest"></td>
 								<td><a th:href="@{/users/update(id=${user.id})}">
 										<button type="button" class="btn btn-dark">update</button>
 								</a></td>

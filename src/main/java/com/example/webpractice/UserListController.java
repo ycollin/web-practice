@@ -33,7 +33,7 @@ public class UserListController {
 		model.addAttribute("condition", condition);
 		// TODO: 検索条件ほか
 		if (Strings.isNotEmpty(condition.getName())) {
-			model.addAttribute("userList", userRepository.findByName(condition.getName()));
+			model.addAttribute("userList", userRepository.findByNameLike("%" + condition.getName() + "%"));
 		} else {
 			model.addAttribute("userList", userRepository.findAll());
 		}

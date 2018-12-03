@@ -7,9 +7,13 @@ import java.util.Arrays;
 import javax.sql.DataSource;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.val;
@@ -40,8 +44,27 @@ public class WebApplicationConfigration implements WebMvcConfigurer {
 		return dataSource;
 	}
 
+    /**
+     * ValidationメッセージをUTF-8で設定できるようにする
+     */
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
 
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
+    }
 
-
+    private MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:/ValidationMessages");
+        //UTF-8
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
 
 }

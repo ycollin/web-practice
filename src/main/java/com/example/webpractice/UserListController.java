@@ -1,9 +1,12 @@
 package com.example.webpractice;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +56,10 @@ public class UserListController {
 	}
 
 	@PostMapping("/users/update")
-	public String update(@ModelAttribute User user, Model model) {
+	public String update(@Valid @ModelAttribute User user, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "users/update";
+		}
 		userRepository.save(user);
 		model.addAttribute("user", userRepository.findById(user.getId()).get());
 
@@ -68,7 +74,10 @@ public class UserListController {
 	}
 
 	@PostMapping("/users/register")
-	public String register(@ModelAttribute User user, Model model) {
+	public String register(@Valid @ModelAttribute User user, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "users/register";
+		}
 		userRepository.save(user);
 		return "redirect:list";
 	}
